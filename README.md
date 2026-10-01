@@ -52,7 +52,7 @@ exatamente 0 até `n! - 1`, sem repetição e na mesma ordem em que elas saem. S
 ## A ordem colexicográfica, e por que não a intuitiva
 
 O número de uma combinação sai pelo sistema de numeração combinatório:
-`C(c0,1) + C(c1,2) + … + C(ck,k)`. Isso ordena as combinações em ordem
+`C(c0,1) + C(c1,2) + ... + C(ck,k)`. Isso ordena as combinações em ordem
 colexicográfica, que é a lexicográfica lida de trás para frente, e não é a ordem
 que ninguém esperaria.
 
