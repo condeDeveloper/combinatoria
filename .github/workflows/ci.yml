@@ -1,0 +1,38 @@
+name: testes
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  testes:
+    runs-on: ${{ matrix.so }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        so: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      # O juiz e a enumeracao completa, enquanto ela existir: o binomial contra
+      # listar as combinacoes, o Catalan contra contar parenteses balanceados, o
+      # Bell contra enumerar as particoes de conjunto, os desarranjos contra
+      # gerar as 46.233 permutacoes de ate 8 elementos. E a numeracao e conferida
+      # como BIJECAO, varrendo o conjunto inteiro: nenhum buraco, nenhuma
+      # repeticao.
+      - name: testes
+        run: dotnet test testes/Combinatoria.Testes/Combinatoria.Testes.csproj -c Release --nologo -v q
+
+      # As medidas rodam para REGISTRAR numeros. Nao ha asseveracao de tempo.
+      - name: onde cada tipo quebra
+        run: dotnet run --project ferramentas/Medidor/Medidor.csproj -c Release --nologo -- estourar
+
+      - name: numerar contra enumerar
+        run: dotnet run --project ferramentas/Medidor/Medidor.csproj -c Release --nologo -- numerar
